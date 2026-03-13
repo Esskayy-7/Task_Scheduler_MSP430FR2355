@@ -1,0 +1,1 @@
+"./main.obj" "./Application/ADC_Task.obj" "./Application/GPIO_Task.obj" "./Application/Timer_Task.obj" "./Application/UART_Task.obj" "./Drivers/ADC.obj" "./Drivers/GPIO.obj" "./Drivers/Timer.obj" "./Drivers/UART.obj" "./Scheduler/Scheduler.obj" "../lnk_msp430fr2355.cmd" -lfrwp_init.a -llibc.a 
