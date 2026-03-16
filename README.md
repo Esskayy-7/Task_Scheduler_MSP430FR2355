@@ -1,6 +1,6 @@
 # MSP430 Cooperative Task Scheduler
 
-A bare-metal cooperative task scheduler implemented from scratch in C for the **Texas Instruments MSP430G2** microcontroller — no RTOS, no HAL abstractions, no external libraries. Every peripheral driver, interrupt handler, and scheduling mechanism is hand-built.
+A bare-metal cooperative task scheduler implemented from scratch in C for the **Texas Instruments MSP430FR2355** microcontroller — no RTOS, no HAL abstractions, no external libraries. Every peripheral driver, interrupt handler, and scheduling mechanism is hand-built.
 
 Built as a hands-on exploration of how real-time task management works at the hardware level on resource-constrained embedded targets.
 
@@ -19,7 +19,7 @@ The result is a system that manages **four concurrent tasks** — two LED blinke
 - **Cooperative round-robin scheduler** — tick-based, period-configurable per task, no dynamic memory allocation
 - **Timer driver** — TimerB0 in continuous mode on ACLK (~32 kHz), generating system ticks at ~10 ms intervals
 - **ADC driver** — 8-bit conversion on P1.2 (A2), interrupt-driven, dynamically adjusts LED blink periods based on analog input
-- **UART driver** — UART A1 configured via SMCLK at 9600 baud; transmits ADC readings over serial
+- **UART driver** — UART A1 configured via SMCLK at 115200 baud; transmits ADC readings over serial
 - **GPIO driver** — Dual LED outputs (P1.0, P6.6) with interrupt-driven button input (P2.3)
 - **Double-click detection** — Button ISR distinguishes single vs. double press using tick-delta timing (< 500 ms threshold), adjusting LED periods accordingly
 - **Hardware-in-the-loop control** — ADC ISR directly recalculates LED1 and LED2 blink periods from the sampled analog value in real time
@@ -30,7 +30,7 @@ The result is a system that manages **four concurrent tasks** — two LED blinke
 
 | Component        | Detail                          |
 |------------------|---------------------------------|
-| Microcontroller  | Texas Instruments MSP430 (G2 family) |
+| Microcontroller  | Texas Instruments MSP430FR2355 |
 | IDE              | Code Composer Studio (CCS)      |
 | LED 1            | P1.0 (onboard red LED)          |
 | LED 2            | P6.6 (onboard green LED)        |
@@ -56,7 +56,7 @@ The codebase is organised into three layers. Each layer only depends on the one 
 ┌────────────────▼────────────────────────────┐
 │           Application Task Layer           │
 │  ADC_Task   GPIO_Task  Timer_Task UART_Task │
-│  Thin wrappers: init functions + task fns  │
+│  Thin wrappers: init functions + task functions  │
 └────────────────┬────────────────────────────┘
                  │ calls
 ┌────────────────▼────────────────────────────┐
@@ -113,7 +113,7 @@ void run_scheduler(void) {
 }
 ```
 
-Because this is a **cooperative** scheduler, tasks are never preempted — each one runs to completion before the next is checked. This keeps shared state management simple and avoids the need for mutexes.
+Because this is a **cooperative** scheduler, tasks are never preempted — each one runs to completion before the next is checked. This keeps shared state management simple.
 
 ### Task Table
 
@@ -187,7 +187,7 @@ static int set_polarity(void) {
 1. Open **Code Composer Studio (CCS)**
 2. Create a new CCS project targeting your MSP430 variant
 3. Import all source files, preserving the folder structure above
-4. Build the project (`Ctrl + B`)
+4. Build the project
 5. Connect your LaunchPad via USB and flash (`Run → Debug`)
 
 > Make sure your CCS project includes the correct MSP430 device support package for your specific chip variant.
