@@ -194,18 +194,6 @@ static int set_polarity(void) {
 
 ---
 
-## Demo
-
-> _Add a short GIF or video here of the LEDs blinking and responding to the potentiometer and button. Even a 5-second phone recording makes a significant difference for anyone reviewing the project._
-
-Suggested demo content:
-- Rotating the potentiometer → LED1 and LED2 visibly trade blink speeds
-- Single button press → both LEDs slow down
-- Double button press → both LEDs speed up
-- UART output captured in a serial monitor (e.g. PuTTY or CCS terminal) showing ADC values streaming at ~250 ms intervals
-
----
-
 ## Future Improvements
 
 - **Priority levels** — assign high/low priority to tasks so critical tasks (e.g. ADC sampling) are always served first
